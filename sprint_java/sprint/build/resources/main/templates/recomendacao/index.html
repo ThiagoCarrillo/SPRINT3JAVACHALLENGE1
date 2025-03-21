@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Recomendações</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Lista de Recomendações</h2>
+    <!-- Mensagens de feedback -->
+    <div th:if="${mensagem != null}" class="alert alert-success" th:text="${mensagem}"></div>
+    <div th:if="${erro != null}" class="alert alert-danger" th:text="${erro}"></div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Paciente ID</th>
+            <th>Tratamento ID</th>
+            <th>Data da Recomendação</th>
+            <th>Motivo</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="recomendacao : ${recomendacoes}">
+            <td th:text="${recomendacao.id}"></td>
+            <td th:text="${recomendacao.pacienteId}"></td>
+            <td th:text="${recomendacao.tratamentoId}"></td>
+            <td th:text="${recomendacao.data_recomendacao}"></td>
+            <td th:text="${recomendacao.motivo}"></td>
+            <td>
+                <a th:href="@{/recomendacao/edit/{id}(id=${recomendacao.id})}" class="btn btn-primary">Editar</a>
+                <form th:action="@{/recomendacao/delete/{id}(id=${recomendacao.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/recomendacao/create}" class="btn btn-success">Adicionar Nova Recomendação</a>
+</div>
+</body>
+</html>

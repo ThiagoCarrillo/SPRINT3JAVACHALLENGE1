@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Histórico de Tratamento</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Criar Histórico de Tratamento</h2>
+    <form th:action="@{/historico/create}" th:object="${historicoForm}" method="post">
+        <!-- Campos do histórico -->
+        <div class="form-group">
+            <label for="pacienteId">Paciente ID</label>
+            <input type="number" class="form-control" id="pacienteId" th:field="*{pacienteId}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('pacienteId')}" th:errors="*{pacienteId}"></small>
+        </div>
+        <div class="form-group">
+            <label for="tratamentoId">Tratamento ID</label>
+            <input type="number" class="form-control" id="tratamentoId" th:field="*{tratamentoId}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('tratamentoId')}" th:errors="*{tratamentoId}"></small>
+        </div>
+        <div class="form-group">
+            <label for="data_tratamento">Data do Tratamento</label>
+            <input type="date" class="form-control" id="data_tratamento" th:field="*{data_tratamento}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('data_tratamento')}" th:errors="*{data_tratamento}"></small>
+        </div>
+        <div class="form-group">
+            <label for="observacao">Observação</label>
+            <textarea class="form-control" id="observacao" th:field="*{observacao}" required></textarea>
+            <small class="text-danger" th:if="${#fields.hasErrors('observacao')}" th:errors="*{observacao}"></small>
+        </div>
+
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </form>
+</div>
+</body>
+</html>

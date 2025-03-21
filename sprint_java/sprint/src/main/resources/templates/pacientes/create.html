@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Paciente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Criar Paciente</h2>
+    <form id="cadastroForm" th:action="@{/pacientes/create}" th:object="${pacienteForm}" method="post">
+        <!-- Campos do paciente -->
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" th:field="*{nome}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+        </div>
+        <div class="form-group">
+            <label for="data_nascimento">Data de Nascimento</label>
+            <input type="date" class="form-control" id="data_nascimento" th:field="*{data_nascimento}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('data_nascimento')}" th:errors="*{data_nascimento}"></small>
+        </div>
+        <div class="form-group">
+            <label for="genero">Gênero</label>
+            <select class="form-control" id="genero" th:field="*{genero}" required>
+                <option th:each="genero : ${T(com.fiap.sprint.model.paciente.Genero).values()}"
+                        th:value="${genero}"
+                        th:text="${genero}"></option>
+            </select>
+            <small class="text-danger" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></small>
+        </div>
+        <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="text" class="form-control" id="telefone" th:field="*{telefone}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></small>
+        </div>
+
+        <!-- Campos do endereço -->
+        <div class="form-group">
+            <label for="logradouro">Logradouro</label>
+            <input type="text" class="form-control" id="logradouro" th:field="*{endereco.logradouro}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('endereco.logradouro')}" th:errors="*{endereco.logradouro}"></small>
+        </div>
+        <div class="form-group">
+            <label for="bairro">Bairro</label>
+            <input type="text" class="form-control" id="bairro" th:field="*{endereco.bairro}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('endereco.bairro')}" th:errors="*{endereco.bairro}"></small>
+        </div>
+        <div class="form-group">
+            <label for="cep">CEP</label>
+            <input type="text" class="form-control" id="cep" th:field="*{endereco.cep}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('endereco.cep')}" th:errors="*{endereco.cep}"></small>
+        </div>
+        <div class="form-group">
+            <label for="cidade">Cidade</label>
+            <input type="text" class="form-control" id="cidade" th:field="*{endereco.cidade}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('endereco.cidade')}" th:errors="*{endereco.cidade}"></small>
+        </div>
+        <div class="form-group">
+            <label for="uf">UF</label>
+            <input type="text" class="form-control" id="uf" th:field="*{endereco.uf}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('endereco.uf')}" th:errors="*{endereco.uf}"></small>
+        </div>
+        <div class="form-group">
+            <label for="numero">Número</label>
+            <input type="text" class="form-control" id="numero" th:field="*{endereco.numero}" required />
+            <small class="text-danger" th:if="${#fields.hasErrors('endereco.numero')}" th:errors="*{endereco.numero}"></small>
+        </div>
+        <div class="form-group">
+            <label for="complemento">Complemento</label>
+            <input type="text" class="form-control" id="complemento" th:field="*{endereco.complemento}" />
+            <small class="text-danger" th:if="${#fields.hasErrors('endereco.complemento')}" th:errors="*{endereco.complemento}"></small>
+        </div>
+
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Impede o envio tradicional do formulário
+
+        // Coleta os dados do formulário
+        const formData = {
+            nome: document.getElementById('nome').value,
+            email: document.getElementById('email').value,
+            data_nascimento: document.getElementById('data_nascimento').value,
+            genero: document.getElementById('genero').value,
+            telefone: document.getElementById('telefone').value,
+            endereco: {
+                logradouro: document.getElementById('logradouro').value,
+                bairro: document.getElementById('bairro').value,
+                cep: document.getElementById('cep').value,
+                cidade: document.getElementById('cidade').value,
+                uf: document.getElementById('uf').value,
+                numero: document.getElementById('numero').value,
+                complemento: document.getElementById('complemento').value
+            }
+        };
+
+        // Envia os dados como JSON
+        fetch('/pacientes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => { throw err; });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Sucesso:', data);
+                alert('Paciente cadastrado com sucesso!');
+                window.location.href = '/pacientes'; // Redireciona para a lista de pacientes
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                if (error.mensagem) {
+                    alert(error.mensagem);
+                } else {
+                    alert('Erro ao cadastrar paciente.');
+                }
+            });
+    });
+</script>
+</body>
+</html>

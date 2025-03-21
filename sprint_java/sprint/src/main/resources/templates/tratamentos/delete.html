@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Excluir Tratamento</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Excluir Tratamento</h2>
+    <p>Tem certeza de que deseja excluir o tratamento <span th:text="${tratamento.descricao}"></span>?</p>
+
+    <form th:action="@{/tratamentos/delete/{id}(id=${tratamento.id})}" method="post">
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        <a th:href="@{/tratamentos}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

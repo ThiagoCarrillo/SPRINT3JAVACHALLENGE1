@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Recomendação</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Editar Recomendação</h2>
+    <form th:action="@{/recomendacao/edit/{id}(id=${recomendacao.id})}" th:object="${recomendacao}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+            <label for="motivo">Motivo</label>
+            <textarea class="form-control" id="motivo" th:field="*{motivo}" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+</div>
+</body>
+</html>

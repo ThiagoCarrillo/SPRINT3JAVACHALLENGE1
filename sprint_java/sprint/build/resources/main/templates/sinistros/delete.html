@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Excluir Sinistro</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Excluir Sinistro</h2>
+    <div class="alert alert-warning">
+        <p>Você está prestes a excluir o sinistro com ID: <strong th:text="${sinistro.id}"></strong>.</p>
+        <p>Esta ação não pode ser desfeita. Tem certeza que deseja continuar?</p>
+    </div>
+
+    <form th:action="@{/sinistros/delete/{id}(id=${sinistro.id})}" method="post">
+        <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+        <a th:href="@{/sinistros}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

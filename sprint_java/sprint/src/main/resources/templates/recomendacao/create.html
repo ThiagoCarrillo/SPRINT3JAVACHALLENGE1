@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Recomendação</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Criar Recomendação</h2>
+    <form th:action="@{/recomendacao}" th:object="${recomendacaoForm}" method="post">
+        <div class="form-group">
+            <label for="pacienteId">Paciente ID</label>
+            <input type="number" class="form-control" id="pacienteId" th:field="*{pacienteId}" required />
+        </div>
+        <div class="form-group">
+            <label for="tratamentoId">Tratamento ID</label>
+            <input type="number" class="form-control" id="tratamentoId" th:field="*{tratamentoId}" required />
+        </div>
+        <div class="form-group">
+            <label for="data_recomendacao">Data da Recomendação</label>
+            <input type="date" class="form-control" id="data_recomendacao" th:field="*{data_recomendacao}" required />
+        </div>
+        <div class="form-group">
+            <label for="motivo">Motivo</label>
+            <textarea class="form-control" id="motivo" th:field="*{motivo}" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </form>
+</div>
+</body>
+</html>

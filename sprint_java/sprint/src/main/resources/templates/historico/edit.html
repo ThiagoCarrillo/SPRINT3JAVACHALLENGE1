@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Histórico de Tratamento</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Editar Histórico de Tratamento</h2>
+    <form th:action="@{/historico/edit/{id}(id=${historico.id})}" th:object="${historico}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <!-- Campos editáveis -->
+        <div class="form-group">
+            <label for="observacao">Observação</label>
+            <textarea class="form-control" id="observacao" th:field="*{observacao}" required></textarea>
+            <small class="text-danger" th:if="${#fields.hasErrors('observacao')}" th:errors="*{observacao}"></small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Excluir Histórico de Tratamento</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Excluir Histórico de Tratamento</h2>
+    <div class="alert alert-warning">
+        <p>Você está prestes a excluir o histórico de tratamento com ID: <strong th:text="${historico.id}"></strong>.</p>
+        <p>Esta ação não pode ser desfeita. Tem certeza que deseja continuar?</p>
+    </div>
+
+    <form th:action="@{/historico/delete/{id}(id=${historico.id})}" method="post">
+        <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+        <a th:href="@{/historico}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

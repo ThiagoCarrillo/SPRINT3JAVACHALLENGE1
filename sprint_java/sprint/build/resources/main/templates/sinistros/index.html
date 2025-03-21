@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Sinistros</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Lista de Sinistros</h2>
+    <!-- Mensagens de feedback -->
+    <div th:if="${mensagem != null}" class="alert alert-success" th:text="${mensagem}"></div>
+    <div th:if="${erro != null}" class="alert alert-danger" th:text="${erro}"></div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Paciente ID</th>
+            <th>Tratamento ID</th>
+            <th>Data de Ocorrência</th>
+            <th>Reembolso</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sinistro : ${sinistros}">
+            <td th:text="${sinistro.id}"></td>
+            <td th:text="${sinistro.descricao}"></td>
+            <td th:text="${sinistro.status}"></td>
+            <td th:text="${sinistro.pacienteId}"></td>
+            <td th:text="${sinistro.tratamentoId}"></td>
+            <td th:text="${sinistro.data_ocorrencia}"></td>
+            <td th:text="${sinistro.reembolso}"></td>
+            <td>
+                <a th:href="@{/sinistros/edit/{id}(id=${sinistro.id})}" class="btn btn-primary">Editar</a>
+                <form th:action="@{/sinistros/delete/{id}(id=${sinistro.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/sinistros/create}" class="btn btn-success">Adicionar Novo Sinistro</a>
+</div>
+</body>
+</html>

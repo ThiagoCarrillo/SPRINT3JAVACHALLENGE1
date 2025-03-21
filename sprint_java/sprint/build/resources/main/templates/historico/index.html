@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Históricos de Tratamento</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Lista de Históricos de Tratamento</h2>
+    <!-- Mensagens de feedback -->
+    <div th:if="${mensagem != null}" class="alert alert-success" th:text="${mensagem}"></div>
+    <div th:if="${erro != null}" class="alert alert-danger" th:text="${erro}"></div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Paciente ID</th>
+            <th>Tratamento ID</th>
+            <th>Data do Tratamento</th>
+            <th>Observação</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="historico : ${historicos}">
+            <td th:text="${historico.id}"></td>
+            <td th:text="${historico.pacienteId}"></td>
+            <td th:text="${historico.tratamentoId}"></td>
+            <td th:text="${historico.data_tratamento}"></td>
+            <td th:text="${historico.motivo}"></td> <!-- Usando "motivo" -->
+            <td>
+                <!-- Botão de Editar -->
+                <a th:href="@{/historico/edit/{id}(id=${historico.id})}" class="btn btn-primary">Editar</a>
+
+                <!-- Formulário de Exclusão -->
+                <form th:action="@{/historico/delete/{id}(id=${historico.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/historico/create}" class="btn btn-success">Adicionar Novo Histórico</a>
+</div>
+</body>
+</html>

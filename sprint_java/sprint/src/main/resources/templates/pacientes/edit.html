@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Paciente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Editar Paciente</h2>
+    <form th:action="@{/pacientes/edit/{id}(id=${paciente.id})}" th:object="${paciente}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <!-- Campos editáveis -->
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" th:field="*{nome}" required />
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+</div>
+</body>
+</html>
