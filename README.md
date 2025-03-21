@@ -1,9 +1,9 @@
 
 ## Integrantes do Grupo
 
-RM 553434 – Igor Oviedo 
-Rm553565 - Thiago Carrillo    
-RM 553093 - Cauã Loureiro   
+* RM 553434 – Igor Oviedo 
+* RM 553565 - Thiago Carrillo    
+* RM 553093 - Cauã Loureiro   
 
 
  
